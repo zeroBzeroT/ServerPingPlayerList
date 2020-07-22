@@ -1,41 +1,43 @@
 plugins {
     id 'java'
-    id 'io.franzbecker.gradle-lombok' version '3.1.0'
+    id "com.github.johnrengelman.shadow" version "5.1.0"
 }
 
 group 'de.deeprobin'
-version '1.1-SNAPSHOT'
+version '1.2-SNAPSHOT'
 
-sourceCompatibility = 12
-targetCompatibility = 12
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 compileJava.options.encoding = 'UTF-8'
 
-lombok {
-    version = "1.18.8"
-    sha256 = "0396952823579b316a0fe85cbd871bbb3508143c2bcbd985dd7800e806cb24fc"
+artifacts {
+    archives shadowJar
+}
+
+shadowJar {
+    relocate('org.bstats.bungeecord', "de.deeprobin.playerlist.lib.bstats")
 }
 
 
 jar {
     manifest {
         attributes 'Implementation-Title': 'PlayerList',
-                'Implementation-Version': version
+                'Implementation-Version': project.version
     }
 }
 
-processResources
-        {
-            inputs.property "version", project.version
+processResources {
+    inputs.property "version", project.version
 
-            from(sourceSets.main.resources.srcDirs) {
-                include 'bungee.yml'
-                expand 'version': project.version
-            }
+    from(sourceSets.main.resources.srcDirs) {
+        include 'bungee.yml'
+        expand 'version': project.version
+    }
 
-            from(sourceSets.main.resources.srcDirs) {
-                exclude 'plugin.yml'
-            }
-        }
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'bungee.yml'
+    }
+}
 
 
 

@@ -4,7 +4,7 @@ import de.deeprobin.playerlist.listener.ServerListListener;
 import net.md_5.bungee.api.plugin.Plugin;
 import org.bstats.bungeecord.Metrics;
 
-public class BungeePlugin extends Plugin {
+public final class BungeePlugin extends Plugin {
 
     @Override
     public void onEnable(){

@@ -1,5 +1,5 @@
 name: "PlayerList"
-version: ${version}
-author: "DeepRobin"
 description: "A bungee cord plugin for the hover player list in the server list"
-main: de.deeprobin.playerlist.BungeePlugin
+author: "DeepRobin"
+version: "${version}"
+main: "de.deeprobin.playerlist.BungeePlugin"
