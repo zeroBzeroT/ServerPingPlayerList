@@ -2,4 +2,4 @@ name: PlayerList
 description: "A bungee cord plugin for the hover player list in the server list"
 author: DeepRobin
 version: ${version}
-main: de.deeprobin.playerlist.BungeePlugin
+main: de.deeprobin.playerlist.Main

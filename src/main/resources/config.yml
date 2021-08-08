@@ -1,0 +1,4 @@
+# ServerList V${project.version}
+versionName: "ZeroPaper 1.12.2+"
+versionMinProtocol: 340 # 1.12.2
+setHoverInfo: true
