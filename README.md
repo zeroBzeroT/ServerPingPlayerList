@@ -12,4 +12,3 @@ player-list is a plugin for [BungeeCord](https://github.com/SpigotMC/BungeeCord)
 
 ### Libraries used
 * BungeeCord API (only compiled)
-* BStats (shadowed to `de.deeprobin.playerlist.lib.bstats`)
