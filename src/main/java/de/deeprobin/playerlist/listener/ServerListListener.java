@@ -10,12 +10,12 @@ public final class ServerListListener implements Listener {
 
     private final transient BungeePlugin plugin;
 
-    public ServerListListener(BungeePlugin plugin){
+    public ServerListListener(BungeePlugin plugin) {
         this.plugin = plugin;
     }
 
     @EventHandler
-    public void handlePing(final ProxyPingEvent event){
+    public void handlePing(final ProxyPingEvent event) {
         final ServerPing response = event.getResponse();
         final ServerPing.Players players = response.getPlayers();
         final ServerPing.PlayerInfo[] playerInfo = this.plugin.getProxy().getPlayers().stream().map(player -> new ServerPing.PlayerInfo(player.getName(), player.getUniqueId())).toArray(ServerPing.PlayerInfo[]::new);
