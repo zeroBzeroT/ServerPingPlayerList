@@ -1,4 +1,4 @@
-package de.deeprobin.playerlist;
+package org.zeroBzeroT.serverPingPlayerList;
 
 import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.config.Configuration;
@@ -16,6 +16,9 @@ public class Config {
     public static String versionName = "ZeroPaper 1.12.2+";
     public static int versionMinProtocol = 340;
     public static boolean setHoverInfo = true;
+    public static boolean messageOfTheDayOverride = false;
+    public static String messageOfTheDay = "";
+    public static boolean bStats = false;
 
     /**
      * Loads a config file, and if it doesn't exist creates one

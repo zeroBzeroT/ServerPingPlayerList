@@ -1,4 +1,7 @@
-# ServerList V${project.version}
+# ServerPingPlayerList V${project.version}
 versionName: "ZeroPaper 1.12.2+"
 versionMinProtocol: 340 # 1.12.2
 setHoverInfo: true
+messageOfTheDayOverride: false
+messageOfTheDay: "A Minecraft Server"
+bStats: true

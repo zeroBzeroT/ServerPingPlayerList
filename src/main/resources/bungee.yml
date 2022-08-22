@@ -1,5 +1,5 @@
-name: PlayerList
-description: "A bungee cord plugin for the hover player list in the server list"
-author: DeepRobin
+name: ServerPingPlayerList
 version: ${version}
-main: de.deeprobin.playerlist.Main
+description: A BungeeCord plugin for the hover player list in the server list.
+author: bierdosenhalter
+main: org.zeroBzeroT.serverPingPlayerList.Main

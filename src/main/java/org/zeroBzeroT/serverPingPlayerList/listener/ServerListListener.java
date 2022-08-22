@@ -1,11 +1,13 @@
-package de.deeprobin.playerlist.listener;
+package org.zeroBzeroT.serverPingPlayerList.listener;
 
-import de.deeprobin.playerlist.Config;
-import de.deeprobin.playerlist.Main;
+import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ServerPing;
+import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.event.ProxyPingEvent;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.event.EventHandler;
+import org.zeroBzeroT.serverPingPlayerList.Config;
+import org.zeroBzeroT.serverPingPlayerList.Main;
 
 public final class ServerListListener implements Listener {
 
@@ -16,7 +18,7 @@ public final class ServerListListener implements Listener {
     }
 
     @EventHandler
-    public void handlePing(final ProxyPingEvent event) {
+    public void onProxyPing(final ProxyPingEvent event) {
         final ServerPing response = event.getResponse();
 
         // Version
@@ -24,6 +26,13 @@ public final class ServerListListener implements Listener {
         version.setName(Config.versionName);
         if (version.getProtocol() < Config.versionMinProtocol) version.setProtocol(Config.versionMinProtocol);
         response.setVersion(version);
+
+        // message of the day
+        if (Config.messageOfTheDayOverride) {
+            response.setDescriptionComponent(
+                    new TextComponent(ChatColor.translateAlternateColorCodes('&', Config.messageOfTheDay))
+            );
+        }
 
         // Server info player list
         if (Config.setHoverInfo) {
