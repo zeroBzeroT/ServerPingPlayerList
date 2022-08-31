@@ -37,6 +37,10 @@ feature. Therefore, I have developed this plugin.
 
 - BungeeCord API
 
+### Statistics
+
+![Graph](https://bstats.org/signatures/bungeecord/0b0t_ServerListListener.svg)
+
 ### Warranty
 
 The Software is provided "as is" and without warranties of any kind, express
