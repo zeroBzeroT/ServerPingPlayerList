@@ -4,15 +4,14 @@ import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.plugin.Command;
-import net.md_5.bungee.api.plugin.Plugin;
 
 /**
  * ReloadCommand
  */
 public class ReloadCommand extends Command {
-    private final Plugin plugin;
+    private final Main plugin;
 
-    public ReloadCommand(Plugin plugin) {
+    public ReloadCommand(Main plugin) {
         super("spplreload");
         this.plugin = plugin;
     }
@@ -32,5 +31,8 @@ public class ReloadCommand extends Command {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        // Restart the ping task
+        plugin.StartPingTask();
     }
 }

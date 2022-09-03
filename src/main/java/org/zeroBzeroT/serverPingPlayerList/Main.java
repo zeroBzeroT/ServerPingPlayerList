@@ -1,13 +1,22 @@
 package org.zeroBzeroT.serverPingPlayerList;
 
+import net.md_5.bungee.api.Callback;
 import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.ProxyServer;
+import net.md_5.bungee.api.ServerPing;
 import net.md_5.bungee.api.plugin.Plugin;
+import net.md_5.bungee.api.scheduler.ScheduledTask;
 import org.bstats.bungeecord.Metrics;
 import org.zeroBzeroT.serverPingPlayerList.listener.ServerListListener;
 
 import java.io.File;
+import java.util.concurrent.TimeUnit;
 
 public final class Main extends Plugin {
+    public ServerPing mainPing = null;
+
+    ScheduledTask pingTask = null;
+
     @Override
     public void onEnable() {
         super.onEnable();
@@ -27,6 +36,9 @@ public final class Main extends Plugin {
             return;
         }
 
+        // Server Ping Update Task
+        StartPingTask();
+
         // Commands
         getProxy().getPluginManager().registerCommand(this, new ReloadCommand(this));
 
@@ -39,6 +51,8 @@ public final class Main extends Plugin {
         log("config", "§3Set Hover Info: §r" + Config.setHoverInfo);
         if (Config.messageOfTheDayOverride)
             log("config", "§3Message Of The Day: §r" + ChatColor.translateAlternateColorCodes('&', Config.messageOfTheDay));
+        if (Config.useMainServer)
+            log("config", "§3Ping Pass-Through-Server: §r" + Config.mainServer);
 
         // Load Plugin Metrics
         if (Config.bStats) {
@@ -46,9 +60,28 @@ public final class Main extends Plugin {
         }
     }
 
+    void StartPingTask() {
+        mainPing = null;
+
+        if (pingTask != null)
+            pingTask.cancel();
+
+        if (Config.useMainServer) {
+            Callback<ServerPing> pingBack = (result, error) -> mainPing = result;
+
+            pingTask = getProxy().getScheduler().schedule(this,
+                    () -> ProxyServer.getInstance().getServerInfo(Config.mainServer).ping(pingBack),
+                    5, 5, TimeUnit.SECONDS
+            );
+        }
+    }
+
     @Override
     public void onDisable() {
         super.onDisable();
+
+        if (pingTask != null)
+            pingTask.cancel();
 
         getProxy().getPluginManager().unregisterListeners(this);
     }
