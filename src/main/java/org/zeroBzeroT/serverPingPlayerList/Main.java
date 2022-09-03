@@ -37,8 +37,8 @@ public final class Main extends Plugin {
         log("config", "§3Version Name: §r" + ChatColor.translateAlternateColorCodes('&', Config.versionName));
         log("config", "§3Version Minimum Protocol: §r" + Config.versionMinProtocol);
         log("config", "§3Set Hover Info: §r" + Config.setHoverInfo);
-        if(Config.messageOfTheDayOverride)
-            log("config", "§3Message Of The Day: §r" + ChatColor.translateAlternateColorCodes('&',Config.messageOfTheDay));
+        if (Config.messageOfTheDayOverride)
+            log("config", "§3Message Of The Day: §r" + ChatColor.translateAlternateColorCodes('&', Config.messageOfTheDay));
 
         // Load Plugin Metrics
         if (Config.bStats) {

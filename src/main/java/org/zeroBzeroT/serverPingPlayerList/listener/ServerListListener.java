@@ -8,9 +8,9 @@ import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.event.EventHandler;
 import org.zeroBzeroT.serverPingPlayerList.Config;
 import org.zeroBzeroT.serverPingPlayerList.Main;
+import org.zeroBzeroT.serverPingPlayerList.ServerInfoRetriever;
 
 public final class ServerListListener implements Listener {
-
     private final transient Main plugin;
 
     public ServerListListener(Main plugin) {
@@ -36,9 +36,28 @@ public final class ServerListListener implements Listener {
 
         // Server info player list
         if (Config.setHoverInfo) {
-            final ServerPing.Players players = response.getPlayers();
-            final ServerPing.PlayerInfo[] playerHoverInfo = this.plugin.getProxy().getPlayers().stream().map(player -> new ServerPing.PlayerInfo(player.getName(), player.getUniqueId())).toArray(ServerPing.PlayerInfo[]::new);
-            players.setSample(playerHoverInfo);
+            ServerPing ping = null;
+
+            if (Config.useMainServer) {
+                try {
+                    ping = ServerInfoRetriever.getServerPing(Config.mainServer);
+                } catch (Exception e) {
+                    plugin.log("onProxyPing", "Error retrieving server ping from '" + Config.mainServer + "': " + e.getClass().getSimpleName());
+                }
+
+                if (ping != null) {
+                    final ServerPing.Players players = response.getPlayers();
+                    players.setSample(ping.getPlayers().getSample());
+                    players.setOnline(ping.getPlayers().getSample().length);
+                }
+            }
+
+            if (ping == null || !Config.useMainServer) {
+                final ServerPing.Players players = response.getPlayers();
+                final ServerPing.PlayerInfo[] playerHoverInfo = this.plugin.getProxy().getPlayers().stream().map(player -> new ServerPing.PlayerInfo(player.getName(), player.getUniqueId())).toArray(ServerPing.PlayerInfo[]::new);
+                players.setSample(playerHoverInfo);
+                players.setOnline(this.plugin.getProxy().getPlayers().size());
+            }
         }
 
         event.setResponse(response);

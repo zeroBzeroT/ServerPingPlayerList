@@ -19,6 +19,8 @@ public class Config {
     public static boolean messageOfTheDayOverride = false;
     public static String messageOfTheDay = "";
     public static boolean bStats = false;
+    public static boolean useMainServer = false;
+    public static String mainServer = "main";
 
     /**
      * Loads a config file, and if it doesn't exist creates one
