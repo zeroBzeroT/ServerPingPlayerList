@@ -1,4 +1,11 @@
-## ServerPingPlayerList
+# ServerPingPlayerList
+
+ServerPingPlayerList is a plugin for **[BungeeCord](https://github.com/SpigotMC/BungeeCord)**. The plugin makes sure that
+the player list is displayed as so-called samples again. This feature is included in Vanilla Minecraft and Bukkit,
+Spigot & Paper by default, but the [BungeeCord Proxy](https://github.com/SpigotMC/BungeeCord) does not support this
+feature.
+
+![logo](https://github.com/zeroBzeroT/ServerPingPlayerList/blob/master/logo.jpg?raw=true)
 
 [![discord](https://img.shields.io/discord/895546064260718622?logo=discord)](https://discord.0b0t.org)
 [![reddit](https://img.shields.io/reddit/subreddit-subscribers/0b0t)](https://old.reddit.com/r/0b0t/)
@@ -6,24 +13,17 @@
 ![repo size](https://img.shields.io/github/languages/code-size/zeroBzeroT/ServerPingPlayerList.svg?label=repo%20size)
 [![downloads](https://img.shields.io/github/downloads/zeroBzeroT/ServerPingPlayerList/total)](https://github.com/zeroBzeroT/ServerPingPlayerList/releases)
 
----
-
-ServerPingPlayerList is a plugin for [BungeeCord](https://github.com/SpigotMC/BungeeCord). The plugin makes sure that
-the player list is displayed as so-called samples again. This feature is included in Vanilla Minecraft and Bukkit,
-Spigot & Paper by default, but the [BungeeCord Proxy](https://github.com/SpigotMC/BungeeCord) does not support this
-feature. Therefore, I have developed this plugin.
-
-### Details
+## Details
 
 - All players of a server in the server browser (on hover)
 - Server name, version and minimum supported protocol
-- Message of the day override
+- Optional message of the day override
 
-### Commands
+## Commands
 
-- **/spplreload {count}**   reloads the config from the file
+**/spplreload {count}** reloads the config from the file.
 
-### Config
+## Config
 
 | Setting                 | Description                                 |
 |-------------------------|---------------------------------------------|
@@ -33,15 +33,15 @@ feature. Therefore, I have developed this plugin.
 | messageOfTheDayOverride | Overrides all MOTDs of the servers          |
 | messageOfTheDay         | Message of the day                          |
 
-### Libraries
+## Libraries
 
 - BungeeCord API
 
-### Statistics
+## Statistics
 
 ![Graph](https://bstats.org/signatures/bungeecord/0b0t_ServerListListener.svg)
 
-### Warranty
+## Warranty
 
 The Software is provided "as is" and without warranties of any kind, express
 or implied, including but not limited to the warranties of merchantability,
