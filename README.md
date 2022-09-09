@@ -21,7 +21,7 @@ feature.
 
 ## Commands
 
-**/spplreload {count}** reloads the config from the file.
+**/spplreload** reloads the config from the file.
 
 ## Config
 
