@@ -23,6 +23,9 @@ jobs:
           check-latest: true
           cache: 'gradle'
 
+      - name: 'Change permissions'
+        run: chmod +x ./gradlew
+
       - name: 'Build plugin'
         run: ./gradlew --console plain --no-daemon --full-stacktrace check build
 
