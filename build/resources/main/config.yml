@@ -1,0 +1,9 @@
+# ServerPingPlayerList V${project.version}
+versionName: "LimeWire 5.5.16"
+versionMinProtocol: 340 # 1.12.2
+setHoverInfo: true
+messageOfTheDayOverride: false
+messageOfTheDay: "A Minecraft Server"
+bStats: true
+useMainServer: false
+mainServer: main
