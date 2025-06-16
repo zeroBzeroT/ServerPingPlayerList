@@ -17,7 +17,6 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 public class Main {
-
     private final ProxyServer server;
     private final Logger logger;
     private final Path dataDirectory;
@@ -39,18 +38,26 @@ public class Main {
     public void onProxyInitialize(ProxyInitializeEvent event) {
         logger.info("ServerPingPlayerList is starting up...");
 
-
         config = new Config(dataDirectory, logger);
 
         // Register Event Listeners
-        serverListListener = new ServerListListener(this, logger, config);
+        serverListListener = new ServerListListener(this, config);
         server.getEventManager().register(this, serverListListener);
 
+        // Commands
         registerCommands();
 
+        // Server Ping Update Task
         startPingTask();
 
+        // Some output to the console ;)
         logConfig();
+
+        // TODO Load Plugin Metrics
+        if (config.getBoolean("bStats")) {
+            // bStats is Velocity Metrics v2, so you would prolly need to set up differently if you want to support it.
+            // so this is js a placeholder for your metrics setup if needed.
+        }
     }
 
     private void registerCommands() {
@@ -60,10 +67,6 @@ public class Main {
 
     public ProxyServer getServer() {
         return server;
-    }
-
-    public Config getConfig() {
-        return config;
     }
 
     public ServerPing getMainPing() {
@@ -83,39 +86,36 @@ public class Main {
         if (pingTask != null) {
             pingTask.cancel();
         }
+
         mainPing = null;
 
         if (config.getBoolean("useMainServer")) {
-            Optional<RegisteredServer> mainServer = server.getServer(config.getValue("mainServer"));
+            Optional<RegisteredServer> mainServer = server.getServer(config.getString("mainServer"));
             if (mainServer.isEmpty()) {
-                logger.warn("Main server '{}' not found! Ping task will not start.", config.getValue("mainServer"));
+                logger.warn("Main server '{}' not found! Ping task will not start.", config.getString("mainServer"));
                 return;
             }
 
             // Schedule repeating task to update mainPing every 5 seconds
             pingTask = server.getScheduler().buildTask(this, () -> mainServer.get().ping().thenAccept(ping -> {
                 mainPing = ping;
-                logger.debug("Cached ping updated for main server '{}'", config.getValue("mainServer"));
+                logger.debug("Cached ping updated for main server '{}'", config.getString("mainServer"));
             }).exceptionally(t -> {
-                logger.error("Failed to ping main server '{}'", config.getValue("mainServer"), t);
+                logger.error("Failed to ping main server '{}'", config.getString("mainServer"), t);
                 return null;
             })).repeat(5, TimeUnit.SECONDS).schedule();
         }
     }
 
     private void logConfig() {
-        logger.info("[config] Version Name: {}", config.getValue("versionName"));
-        logger.info("[config] Version Minimum Protocol: {}", config.getValue("versionMinProtocol"));
-        logger.info("[config] Set Hover Info: {}", config.getValue("setHoverInfo"));
+        logger.info("[config] Version Name: {}", config.getString("versionName"));
+        logger.info("[config] Version Minimum Protocol: {}", config.getString("versionMinProtocol"));
+        logger.info("[config] Set Hover Info: {}", config.getString("setHoverInfo"));
         if (config.getBoolean("messageOfTheDayOverride")) {
-            logger.info("[config] Message Of The Day: {}", config.getValue("messageOfTheDay"));
+            logger.info("[config] Message Of The Day: {}", config.getString("messageOfTheDay"));
         }
         if (config.getBoolean("useMainServer")) {
-            logger.info("[config] Ping Pass-Through-Server: {}", config.getValue("mainServer"));
-        }
-        if (config.getBoolean("bStats")) {
-            // TODO bStats is Velocity Metrics v2, so you would prolly need to set up differently if you want to support it.
-            // so this is js a placeholder for your metrics setup if needed.
+            logger.info("[config] Ping Pass-Through-Server: {}", config.getString("mainServer"));
         }
     }
 }

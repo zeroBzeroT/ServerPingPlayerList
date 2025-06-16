@@ -54,11 +54,15 @@ public class Config {
         }
     }
 
-    public String getValue(String key) {
+    public String getString(String key) {
         return configValues.getOrDefault(key, "").toString();
     }
 
     public boolean getBoolean(String key) {
         return Boolean.parseBoolean(configValues.getOrDefault(key, "false").toString());
+    }
+
+    public Integer getInt(String key) {
+        return Integer.parseInt(configValues.getOrDefault(key, "false").toString());
     }
 }
