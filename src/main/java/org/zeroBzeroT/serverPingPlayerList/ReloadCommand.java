@@ -1,38 +1,31 @@
 package org.zeroBzeroT.serverPingPlayerList;
 
-import net.md_5.bungee.api.CommandSender;
-import net.md_5.bungee.api.ProxyServer;
-import net.md_5.bungee.api.chat.TextComponent;
-import net.md_5.bungee.api.plugin.Command;
+import com.velocitypowered.api.command.CommandSource;
+import com.velocitypowered.api.command.SimpleCommand;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import org.slf4j.Logger;
 
-/**
- * ReloadCommand
- */
-public class ReloadCommand extends Command {
+public class ReloadCommand implements SimpleCommand {
     private final Main plugin;
+    private final Logger logger;
 
-    public ReloadCommand(Main plugin) {
-        super("spplreload");
+    public ReloadCommand(Main plugin, Logger logger) {
         this.plugin = plugin;
+        this.logger = logger;
     }
 
     @Override
-    public void execute(CommandSender sender, String[] args) {
-        if (sender != ProxyServer.getInstance().getConsole()) {
-            sender.sendMessage(new TextComponent("§cUnknown command. Type \"/help\" for help."));
-            return;
-        }
+    public void execute(Invocation invocation) {
+        CommandSource sender = invocation.source();
 
-        // Config reload
+        sender.sendMessage(Component.text("Reloading config...", NamedTextColor.AQUA));
         try {
-            sender.sendMessage(new TextComponent("§3Reloading config..."));
-
-            Config.getConfig(plugin);
+            plugin.reloadConfig();
+            sender.sendMessage(Component.text("Configuration reloaded successfully!", NamedTextColor.GREEN));
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Error while reloading config!", e);
+            sender.sendMessage(Component.text("An error occurred while reloading configuration.", NamedTextColor.RED));
         }
-
-        // Restart the ping task
-        plugin.StartPingTask();
     }
 }

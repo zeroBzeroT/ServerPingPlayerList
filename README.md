@@ -1,8 +1,21 @@
-# ServerPingPlayerList
+# TODO
 
-ServerPingPlayerList is a plugin for **[BungeeCord](https://github.com/SpigotMC/BungeeCord)**. The plugin makes sure that
+few errors in src/main/java/org/zeroBzeroT/serverPingPlayerList/listener/ServerListListener.java
+
+## Versions
+
+| git                                                                               | version | sw        |
+|-----------------------------------------------------------------------------------|---------|-----------|
+| [master](https://github.com/zeroBzeroT/ServerPingPlayerList/tree/master)          | 2.0.x   | velocity  |
+| [1.20.4_paper](https://github.com/zeroBzeroT/ServerPingPlayerList/tree/waterfall) | 1.2.x   | waterfall |
+
+---
+
+## ServerPingPlayerList
+
+ServerPingPlayerList is a plugin for **[Waterfall](https://github.com/SpigotMC/BungeeCord)**. The plugin makes sure that
 the player list is displayed as so-called samples again. This feature is included in Vanilla Minecraft and Bukkit,
-Spigot & Paper by default, but the [BungeeCord Proxy](https://github.com/SpigotMC/BungeeCord) does not support this
+Spigot & Paper by default, but the [Waterfall Proxy](https://github.com/SpigotMC/BungeeCord) does not support this
 feature.
 
 ![logo](https://github.com/zeroBzeroT/ServerPingPlayerList/blob/master/logo.jpg?raw=true)

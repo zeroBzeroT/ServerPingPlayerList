@@ -1,92 +1,121 @@
 package org.zeroBzeroT.serverPingPlayerList;
 
-import net.md_5.bungee.api.Callback;
-import net.md_5.bungee.api.ChatColor;
-import net.md_5.bungee.api.ProxyServer;
-import net.md_5.bungee.api.ServerPing;
-import net.md_5.bungee.api.plugin.Plugin;
-import net.md_5.bungee.api.scheduler.ScheduledTask;
-import org.bstats.bungeecord.Metrics;
+import com.google.inject.Inject;
+import com.velocitypowered.api.command.CommandManager;
+import com.velocitypowered.api.event.Subscribe;
+import com.velocitypowered.api.event.proxy.ProxyInitializeEvent;
+import com.velocitypowered.api.plugin.annotation.DataDirectory;
+import com.velocitypowered.api.proxy.ProxyServer;
+import com.velocitypowered.api.proxy.server.RegisteredServer;
+import com.velocitypowered.api.proxy.server.ServerPing;
+import com.velocitypowered.api.scheduler.ScheduledTask;
+import org.slf4j.Logger;
 import org.zeroBzeroT.serverPingPlayerList.listener.ServerListListener;
 
-import java.io.File;
+import java.nio.file.Path;
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
-public final class Main extends Plugin {
-    public ServerPing mainPing = null;
+public class Main {
 
-    ScheduledTask pingTask = null;
+    private final ProxyServer server;
+    private final Logger logger;
+    private final Path dataDirectory;
 
-    @Override
-    public void onEnable() {
-        super.onEnable();
+    private Config config;
+    private ServerListListener serverListListener;
 
-        String folder = getDataFolder().getPath();
+    private ScheduledTask pingTask;
+    private volatile ServerPing mainPing; // Cached ping from main server, similar to old mainPing
 
-        // Create path directories if not existent
-        //noinspection ResultOfMethodCallIgnored
-        new File(folder).mkdirs();
-
-        // Config
-        try {
-            Config.getConfig(this);
-        } catch (Exception e) {
-            e.printStackTrace();
-            onDisable();
-            return;
-        }
-
-        // Server Ping Update Task
-        StartPingTask();
-
-        // Commands
-        getProxy().getPluginManager().registerCommand(this, new ReloadCommand(this));
-
-        // register the listener
-        this.getProxy().getPluginManager().registerListener(this, new ServerListListener(this));
-
-        // Some output to the console ;)
-        log("config", "§3Version Name: §r" + ChatColor.translateAlternateColorCodes('&', Config.versionName));
-        log("config", "§3Version Minimum Protocol: §r" + Config.versionMinProtocol);
-        log("config", "§3Set Hover Info: §r" + Config.setHoverInfo);
-        if (Config.messageOfTheDayOverride)
-            log("config", "§3Message Of The Day: §r" + ChatColor.translateAlternateColorCodes('&', Config.messageOfTheDay));
-        if (Config.useMainServer)
-            log("config", "§3Ping Pass-Through-Server: §r" + Config.mainServer);
-
-        // Load Plugin Metrics
-        if (Config.bStats) {
-            new Metrics(this, 16229);
-        }
+    @Inject
+    public Main(ProxyServer server, Logger logger, @DataDirectory Path dataDirectory) {
+        this.server = server;
+        this.logger = logger;
+        this.dataDirectory = dataDirectory;
     }
 
-    void StartPingTask() {
+    @Subscribe
+    public void onProxyInitialize(ProxyInitializeEvent event) {
+        logger.info("ServerPingPlayerList is starting up...");
+
+
+        config = new Config(dataDirectory, logger);
+
+        // Register Event Listeners
+        serverListListener = new ServerListListener(this, logger, config);
+        server.getEventManager().register(this, serverListListener);
+
+        registerCommands();
+
+        startPingTask();
+
+        logConfig();
+    }
+
+    private void registerCommands() {
+        CommandManager commandManager = server.getCommandManager();
+        commandManager.register("spplreload", new ReloadCommand(this, logger));
+    }
+
+    public ProxyServer getServer() {
+        return server;
+    }
+
+    public Config getConfig() {
+        return config;
+    }
+
+    public ServerPing getMainPing() {
+        return mainPing;
+    }
+
+    public void reloadConfig() {
+        logger.info("Reloading configuration...");
+        Config newConfig = new Config(dataDirectory, logger);
+        this.config = newConfig;
+        serverListListener.setConfig(newConfig);
+        startPingTask();
+    }
+
+    public void startPingTask() {
+        // cancel previous task if running
+        if (pingTask != null) {
+            pingTask.cancel();
+        }
         mainPing = null;
 
-        if (pingTask != null)
-            pingTask.cancel();
+        if (config.getBoolean("useMainServer")) {
+            Optional<RegisteredServer> mainServer = server.getServer(config.getValue("mainServer"));
+            if (mainServer.isEmpty()) {
+                logger.warn("Main server '{}' not found! Ping task will not start.", config.getValue("mainServer"));
+                return;
+            }
 
-        if (Config.useMainServer) {
-            Callback<ServerPing> pingBack = (result, error) -> mainPing = result;
-
-            pingTask = getProxy().getScheduler().schedule(this,
-                    () -> ProxyServer.getInstance().getServerInfo(Config.mainServer).ping(pingBack),
-                    5, 5, TimeUnit.SECONDS
-            );
+            // Schedule repeating task to update mainPing every 5 seconds
+            pingTask = server.getScheduler().buildTask(this, () -> mainServer.get().ping().thenAccept(ping -> {
+                mainPing = ping;
+                logger.debug("Cached ping updated for main server '{}'", config.getValue("mainServer"));
+            }).exceptionally(t -> {
+                logger.error("Failed to ping main server '{}'", config.getValue("mainServer"), t);
+                return null;
+            })).repeat(5, TimeUnit.SECONDS).schedule();
         }
     }
 
-    @Override
-    public void onDisable() {
-        super.onDisable();
-
-        if (pingTask != null)
-            pingTask.cancel();
-
-        getProxy().getPluginManager().unregisterListeners(this);
-    }
-
-    public void log(String module, String message) {
-        getLogger().info("§a[" + module + "] §e" + message + "§r");
+    private void logConfig() {
+        logger.info("[config] Version Name: {}", config.getValue("versionName"));
+        logger.info("[config] Version Minimum Protocol: {}", config.getValue("versionMinProtocol"));
+        logger.info("[config] Set Hover Info: {}", config.getValue("setHoverInfo"));
+        if (config.getBoolean("messageOfTheDayOverride")) {
+            logger.info("[config] Message Of The Day: {}", config.getValue("messageOfTheDay"));
+        }
+        if (config.getBoolean("useMainServer")) {
+            logger.info("[config] Ping Pass-Through-Server: {}", config.getValue("mainServer"));
+        }
+        if (config.getBoolean("bStats")) {
+            // TODO bStats is Velocity Metrics v2, so you would prolly need to set up differently if you want to support it.
+            // so this is js a placeholder for your metrics setup if needed.
+        }
     }
 }

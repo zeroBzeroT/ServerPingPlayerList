@@ -1,30 +1,18 @@
 version: 2
 updates:
 
-  - package-ecosystem: "maven"
+  - package-ecosystem: "gradle"
     directory: "/"
     schedule:
       interval: "daily"
-      time: "12:00"
-      timezone: "Europe/Berlin"
     assignees:
       - "bierdosenhalter"
-    reviewers:
-      - "bierdosenhalter"
-    commit-message:
-      prefix: "maven"
-      include: "scope"
+      - "A4P5"
 
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "daily"
-      time: "12:00"
-      timezone: "Europe/Berlin"
     assignees:
       - "bierdosenhalter"
-    reviewers:
-      - "bierdosenhalter"
-    commit-message:
-      prefix: "github-actions"
-      include: "scope"
+      - "A4P5"

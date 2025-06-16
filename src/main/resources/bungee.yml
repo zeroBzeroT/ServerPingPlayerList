@@ -1,5 +1,0 @@
-name: ServerPingPlayerList
-version: ${version}
-description: A BungeeCord plugin for the hover player list in the server list.
-author: bierdosenhalter
-main: org.zeroBzeroT.serverPingPlayerList.Main

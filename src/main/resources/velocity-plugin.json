@@ -1,0 +1,10 @@
+{
+  "id": "serverpingplayerlist",
+  "name": "ServerPingPlayerList",
+  "version": "${version}",
+  "description": "A Velocity plugin for the hover player list in the server list.",
+  "authors": [
+    "bierdosenhalter", "A4P5"
+  ],
+  "main": "org.zeroBzeroT.serverPingPlayerList.Main"
+}

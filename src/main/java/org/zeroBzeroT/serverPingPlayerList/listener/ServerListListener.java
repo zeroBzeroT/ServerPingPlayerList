@@ -1,52 +1,62 @@
 package org.zeroBzeroT.serverPingPlayerList.listener;
 
-import net.md_5.bungee.api.ChatColor;
-import net.md_5.bungee.api.ServerPing;
-import net.md_5.bungee.api.chat.TextComponent;
-import net.md_5.bungee.api.event.ProxyPingEvent;
-import net.md_5.bungee.api.plugin.Listener;
-import net.md_5.bungee.event.EventHandler;
+import com.velocitypowered.api.event.Subscribe;
+import com.velocitypowered.api.event.proxy.ProxyPingEvent;
+import com.velocitypowered.api.proxy.server.ServerPing;
+import net.kyori.adventure.text.Component;
+import org.slf4j.Logger;
 import org.zeroBzeroT.serverPingPlayerList.Config;
 import org.zeroBzeroT.serverPingPlayerList.Main;
 
-public final class ServerListListener implements Listener {
-    private final transient Main plugin;
+import java.util.concurrent.TimeUnit;
 
-    public ServerListListener(Main plugin) {
+
+public final class ServerListListener {
+    private final Main plugin;
+    private final Logger logger;
+    private Config config;
+    private volatile ServerPing cachedPing;
+
+
+    public ServerListListener(Main plugin, Logger logger, Config config) {
         this.plugin = plugin;
+        this.logger = logger;
+        this.config = config;
     }
 
-    @EventHandler
-    public void onProxyPing(final ProxyPingEvent event) {
-        final ServerPing response = event.getResponse();
+    public void setConfig(Config config) {
+        this.config = config;
+    }
 
-        // Version
-        ServerPing.Protocol version = response.getVersion();
-        version.setName(Config.versionName);
-        if (version.getProtocol() < Config.versionMinProtocol) version.setProtocol(Config.versionMinProtocol);
-        response.setVersion(version);
+    public void startCachingPing() {
+        plugin.getServer().getScheduler().buildTask(plugin, () -> plugin.getServer().getServer(config.getValue("mainServer")).ifPresent(server -> {
+            server.ping().thenAccept(ping -> cachedPing = ping);
+        })).repeat(5, TimeUnit.SECONDS).schedule();
+    }
 
-        // Message of the day
-        if (Config.messageOfTheDayOverride) {
-            response.setDescriptionComponent(
-                    new TextComponent(ChatColor.translateAlternateColorCodes('&', Config.messageOfTheDay))
-            );
+    @Subscribe
+    public void onProxyPing(ProxyPingEvent event) {
+        var pingResponseBuilder = event.getPing().asBuilder();
+        pingResponseBuilder.version(event.getPing().getVersion());
+
+        if (config.getBoolean("messageOfTheDayOverride")) {
+            pingResponseBuilder.description(Component.text(config.getValue("messageOfTheDay")));
         }
 
-        // Server info player list
-        if (Config.setHoverInfo) {
-            final ServerPing.Players players = response.getPlayers();
+        // THIS IS WHERE I GOT ERRORS!
 
-            if (Config.useMainServer && plugin.mainPing != null && plugin.mainPing.getPlayers().getSample() != null) {
-                players.setSample(plugin.mainPing.getPlayers().getSample());
-                players.setOnline(plugin.mainPing.getPlayers().getSample().length);
-            } else {
-                final ServerPing.PlayerInfo[] playerHoverInfo = this.plugin.getProxy().getPlayers().stream().map(player -> new ServerPing.PlayerInfo(player.getName(), player.getUniqueId())).toArray(ServerPing.PlayerInfo[]::new);
-                players.setSample(playerHoverInfo);
-                players.setOnline(this.plugin.getProxy().getPlayers().size());
-            }
-        }
+        //if (config.getBoolean("setHoverInfo")) {
+        //    if (config.getBoolean("useMainServer") && cachedPing != null) {
+        //        pingResponseBuilder.onlinePlayers(cachedPing.getPlayersOnline());
+        //        pingResponseBuilder.samplePlayers(cachedPing.getPlayers().getSample());
+        //    } else {
+        //        pingResponseBuilder.samplePlayers(plugin.getServer().getAllPlayers().stream()
+        //                .map(player -> new com.velocitypowered.api.proxy.player.Profile(player.getUniqueId(), player.getUsername()))
+        //                .toArray(com.velocitypowered.api.proxy.player.Profile[]::new));
+        //        pingResponseBuilder.onlinePlayers(plugin.getServer().getPlayerCount());
+        //    }
+        //}
 
-        event.setResponse(response);
+        event.setPing(pingResponseBuilder.build());
     }
 }
