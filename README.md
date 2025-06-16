@@ -2,4 +2,4 @@ few errors in src/main/java/org/zeroBzeroT/serverPingPlayerList/listener/ServerL
 
 might help a bit
 tried keeping as much as the original codes functionality
-project is private
+\nalso project is private
