@@ -1,9 +1,11 @@
 plugins {
     id 'java'
+    id 'xyz.jpenilla.run-velocity' version '2.3.1'
 }
 
 group = 'org.zeroBzeroT'
-version = '2.0-SNAPSHOT'
+version = '2.0.0'
+description = 'A Velocity plugin for the hover player list in the server list.'
 
 repositories {
     mavenCentral()
@@ -11,9 +13,38 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.velocitypowered:velocity-api:3.1.0'
+    // Velocity API
+    // https://repo.papermc.io/service/rest/repository/browse/maven-public/com/velocitypowered/velocity-api/
+    compileOnly group: 'com.velocitypowered', name: 'velocity-api', version: "3.4.0-SNAPSHOT"
+}
+
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(21)
+}
+
+tasks.withType(JavaCompile).configureEach {
+    it.sourceCompatibility = it.targetCompatibility = JavaVersion.toVersion(21)
+    it.options.release = 21
+    it.options.encoding = 'UTF-8'
+}
+
+processResources {
+    filteringCharset "UTF-8"
+    filesMatching("velocity-plugin.json") {
+        filter { line -> line.replace("@VERSION@", project.version) }
+        filter { line -> line.replace("@DESCRIPTION@", project.description) }
+    }
 }
 
 test {
     useJUnitPlatform()
+}
+
+tasks {
+    runVelocity {
+        runDirectory = layout.projectDirectory.dir('run')
+        dependsOn('build')
+        systemProperty('com.mojang.eula.agree', 'true')
+        velocityVersion("3.4.0-SNAPSHOT")
+    }
 }

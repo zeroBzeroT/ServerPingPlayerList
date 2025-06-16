@@ -1,8 +1,8 @@
 {
   "id": "serverpingplayerlist",
   "name": "ServerPingPlayerList",
-  "version": "${version}",
-  "description": "A Velocity plugin for the hover player list in the server list.",
+  "version": "@VERSION@",
+  "description": "@DESCRIPTION@",
   "authors": [
     "bierdosenhalter", "A4P5"
   ],
