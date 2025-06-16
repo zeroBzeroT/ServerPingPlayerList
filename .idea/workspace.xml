@@ -8,10 +8,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a704c272-4ff5-48db-9e09-bdc0778c5d71" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/velocity-plugin.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/velocity-plugin.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/zeroBzeroT/serverPingPlayerList/Config.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/zeroBzeroT/serverPingPlayerList/Config.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/zeroBzeroT/serverPingPlayerList/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/zeroBzeroT/serverPingPlayerList/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,12 +49,13 @@
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="ServerPingPlayerList" type="f1a62948:ProjectNode" />
-                <item name="Dependencies" type="6de06a37:ExternalSystemViewDefaultContributor$MyDependenciesNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="run velocity" type="c8890929:TasksNode$1" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="ServerPingPlayerList" type="f1a62948:ProjectNode" />
-                <item name="Run Configurations" type="7b0102dc:RunConfigurationsNode" />
+                <item name="Dependencies" type="6de06a37:ExternalSystemViewDefaultContributor$MyDependenciesNode" />
               </path>
             </expand>
             <select />
@@ -84,6 +84,7 @@
     "Gradle.Download Sources.executor": "Run",
     "Gradle.ServerPingPlayerList [clean].executor": "Run",
     "Gradle.ServerPingPlayerList [jar].executor": "Run",
+    "Gradle.ServerPingPlayerList [runVelocity].executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -197,5 +198,9 @@
       <updated>1662197631045</updated>
     </task>
     <servers />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="dependencySupport" implementationName="java:com.velocitypowered:velocity-api" />
+    <option featureType="dependencySupport" implementationName="java:net.kyori:adventure-api" />
   </component>
 </project>

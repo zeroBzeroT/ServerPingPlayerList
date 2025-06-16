@@ -2,6 +2,7 @@ package org.zeroBzeroT.serverPingPlayerList;
 
 import com.google.inject.Inject;
 import com.velocitypowered.api.command.CommandManager;
+import com.velocitypowered.api.command.CommandMeta;
 import com.velocitypowered.api.event.Subscribe;
 import com.velocitypowered.api.event.proxy.ProxyInitializeEvent;
 import com.velocitypowered.api.plugin.annotation.DataDirectory;
@@ -25,7 +26,7 @@ public class Main {
     private ServerListListener serverListListener;
 
     private ScheduledTask pingTask;
-    private volatile ServerPing mainPing; // Cached ping from main server, similar to old mainPing
+    private volatile ServerPing mainPing;
 
     @Inject
     public Main(ProxyServer server, Logger logger, @DataDirectory Path dataDirectory) {
@@ -38,7 +39,7 @@ public class Main {
     public void onProxyInitialize(ProxyInitializeEvent event) {
         logger.info("ServerPingPlayerList is starting up...");
 
-        config = new Config(dataDirectory, logger);
+        config = new Config(this, dataDirectory, logger);
 
         // Register Event Listeners
         serverListListener = new ServerListListener(this, config);
@@ -51,7 +52,7 @@ public class Main {
         startPingTask();
 
         // Some output to the console ;)
-        logConfig();
+        config.logConfig();
 
         // TODO Load Plugin Metrics
         if (config.getBoolean("bStats")) {
@@ -62,7 +63,8 @@ public class Main {
 
     private void registerCommands() {
         CommandManager commandManager = server.getCommandManager();
-        commandManager.register("spplreload", new ReloadCommand(this, logger));
+        CommandMeta commandMeta = commandManager.metaBuilder("spplreload").plugin(this).build();
+        commandManager.register(commandMeta, new ReloadCommand(this, logger));
     }
 
     public ProxyServer getServer() {
@@ -75,7 +77,7 @@ public class Main {
 
     public void reloadConfig() {
         logger.info("Reloading configuration...");
-        Config newConfig = new Config(dataDirectory, logger);
+        Config newConfig = new Config(this, dataDirectory, logger);
         this.config = newConfig;
         serverListListener.setConfig(newConfig);
         startPingTask();
@@ -104,18 +106,6 @@ public class Main {
                 logger.error("Failed to ping main server '{}'", config.getString("mainServer"), t);
                 return null;
             })).repeat(5, TimeUnit.SECONDS).schedule();
-        }
-    }
-
-    private void logConfig() {
-        logger.info("[config] Version Name: {}", config.getString("versionName"));
-        logger.info("[config] Version Minimum Protocol: {}", config.getString("versionMinProtocol"));
-        logger.info("[config] Set Hover Info: {}", config.getString("setHoverInfo"));
-        if (config.getBoolean("messageOfTheDayOverride")) {
-            logger.info("[config] Message Of The Day: {}", config.getString("messageOfTheDay"));
-        }
-        if (config.getBoolean("useMainServer")) {
-            logger.info("[config] Ping Pass-Through-Server: {}", config.getString("mainServer"));
         }
     }
 }

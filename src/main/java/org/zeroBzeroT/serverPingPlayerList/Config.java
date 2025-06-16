@@ -11,11 +11,13 @@ import java.nio.file.Path;
 import java.util.Map;
 
 public class Config {
+    private final Main main;
     private final Path configPath;
     private final Logger logger;
     private Map<String, Object> configValues;
 
-    public Config(Path dataDirectory, Logger logger) {
+    public Config(Main main, Path dataDirectory, Logger logger) {
+        this.main = main;
         this.configPath = dataDirectory.resolve("config.yml");
         this.logger = logger;
         loadConfig();
@@ -37,16 +39,20 @@ public class Config {
 
     private void createDefaultConfig() {
         try {
+            Files.createDirectories(configPath.getParent());
+
             Files.createFile(configPath);
+
             try (BufferedWriter writer = Files.newBufferedWriter(configPath)) {
-                writer.write("versionName: ZeroPaper 1.12.2+\n");
-                writer.write("versionMinProtocol: 340\n");
+                writer.write("# Created on " + main.getServer().getVersion().getName() + " " + main.getServer().getVersion().getVersion() + "\n");
+                writer.write("versionName: \"LimeWire 5.5.16\"\n");
+                writer.write("versionMinProtocol: 340 # 1.12.2\n");
                 writer.write("setHoverInfo: true\n");
                 writer.write("messageOfTheDayOverride: false\n");
-                writer.write("messageOfTheDay: ''\n");
-                writer.write("bStats: false\n");
+                writer.write("messageOfTheDay: \"A Minecraft Server\"\n");
+                writer.write("bStats: true\n");
                 writer.write("useMainServer: false\n");
-                writer.write("mainServer: 'main'\n");
+                writer.write("mainServer: \"main\"\n");
             }
             logger.info("Default config created.");
         } catch (IOException e) {
@@ -64,5 +70,17 @@ public class Config {
 
     public Integer getInt(String key) {
         return Integer.parseInt(configValues.getOrDefault(key, "false").toString());
+    }
+
+    void logConfig() {
+        logger.info("Version Name: {}", getString("versionName"));
+        logger.info("Version Minimum Protocol: {}", getString("versionMinProtocol"));
+        logger.info("Set Hover Info: {}", getString("setHoverInfo"));
+        if (getBoolean("messageOfTheDayOverride")) {
+            logger.info("Message Of The Day: {}", getString("messageOfTheDay"));
+        }
+        if (getBoolean("useMainServer")) {
+            logger.info("Ping Pass-Through-Server: {}", getString("mainServer"));
+        }
     }
 }
