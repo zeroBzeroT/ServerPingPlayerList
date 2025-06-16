@@ -9,8 +9,7 @@
   <component name="ChangeListManager">
     <list default="true" id="a704c272-4ff5-48db-9e09-bdc0778c5d71" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/zeroBzeroT/serverPingPlayerList/Config.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/zeroBzeroT/serverPingPlayerList/Config.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/zeroBzeroT/serverPingPlayerList/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/zeroBzeroT/serverPingPlayerList/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
