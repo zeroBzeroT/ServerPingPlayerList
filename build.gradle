@@ -87,8 +87,8 @@ tasks {
         systemProperty('Paper.skipServerPropertiesComments', 'true')
         runDirectory = layout.projectDirectory.dir('run').dir('queue')
         downloadPlugins {
-            github("zeroBzeroT", "QueueServerPlugin", "3.0.0-SNAPSHOT", "queueplugin-3.0.0-SNAPSHOT+1.20.6-paper.jar")
-            url("https://ci.dmulloy2.net/job/ProtocolLib/723/artifact/build/libs/ProtocolLib.jar")
+            url("https://github.com/zeroBzeroT/QueuePlugin/releases/download/v3.0.0/QueuePlugin-3.0.0+1.21-paper.jar")
+            url("https://github.com/dmulloy2/ProtocolLib/releases/download/5.3.0/ProtocolLib.jar")
         }
         dependsOn('shadowJar')
     }

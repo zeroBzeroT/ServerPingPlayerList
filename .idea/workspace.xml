@@ -10,9 +10,6 @@
     <list default="true" id="a704c272-4ff5-48db-9e09-bdc0778c5d71" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/zeroBzeroT/serverPingPlayerList/Config.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/zeroBzeroT/serverPingPlayerList/Config.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/zeroBzeroT/serverPingPlayerList/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/zeroBzeroT/serverPingPlayerList/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/velocity-plugin.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/velocity-plugin.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,13 +43,7 @@
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="ServerPingPlayerList" type="f1a62948:ProjectNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="build" type="c8890929:TasksNode$1" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="ServerPingPlayerList" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="shadow" type="c8890929:TasksNode$1" />
+                <item name="other" type="c8890929:TasksNode$1" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
@@ -88,6 +79,8 @@
     "Gradle.ServerPingPlayerList [classes].executor": "Run",
     "Gradle.ServerPingPlayerList [clean].executor": "Run",
     "Gradle.ServerPingPlayerList [jar].executor": "Run",
+    "Gradle.ServerPingPlayerList [runServerMain].executor": "Run",
+    "Gradle.ServerPingPlayerList [runServerQueue].executor": "Run",
     "Gradle.ServerPingPlayerList [runVelocity].executor": "Run",
     "Gradle.ServerPingPlayerList [shadowJar].executor": "Run",
     "Gradle.ServerPingPlayerList [testClasses].executor": "Run",
@@ -127,7 +120,7 @@
       <framework value="gotest" />
       <method v="2" />
     </configuration>
-    <configuration name="ServerPingPlayerList [classes]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="ServerPingPlayerList [runServerMain]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -138,7 +131,7 @@
         </option>
         <option name="taskNames">
           <list>
-            <option value="classes" />
+            <option value="runServerMain" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -149,7 +142,7 @@
       <RunAsTest>false</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="ServerPingPlayerList [clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="ServerPingPlayerList [runServerQueue]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -160,7 +153,7 @@
         </option>
         <option name="taskNames">
           <list>
-            <option value="clean" />
+            <option value="runServerQueue" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -241,9 +234,9 @@
       <list>
         <item itemvalue="Gradle.ServerPingPlayerList [runVelocity]" />
         <item itemvalue="Gradle.ServerPingPlayerList [shadowJar]" />
+        <item itemvalue="Gradle.ServerPingPlayerList [runServerQueue]" />
+        <item itemvalue="Gradle.ServerPingPlayerList [runServerMain]" />
         <item itemvalue="Gradle.ServerPingPlayerList [testClasses]" />
-        <item itemvalue="Gradle.ServerPingPlayerList [clean]" />
-        <item itemvalue="Gradle.ServerPingPlayerList [classes]" />
       </list>
     </recent_temporary>
   </component>
