@@ -12,10 +12,10 @@ import com.velocitypowered.api.proxy.server.ServerPing;
 import com.velocitypowered.api.scheduler.ScheduledTask;
 import org.slf4j.Logger;
 import org.zeroBzeroT.serverPingPlayerList.listener.ServerListListener;
-
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
+import org.zeroBzeroT.serverPingPlayerList.bstats.Metrics;
 
 public class Main {
     private final ProxyServer server;
@@ -25,6 +25,7 @@ public class Main {
 
     private Config config;
     private ServerListListener serverListListener;
+    private Metrics.Factory metricsFactory;
 
     private ScheduledTask pingTask;
     private volatile ServerPing mainPing;
@@ -58,8 +59,8 @@ public class Main {
 
         // Load Plugin Metrics
         if (config.getBoolean("bStats")) {
-            // TODO implement bStats
-            // factory.make(this, 16229);
+            Metrics metrics = metricsFactory.make(this, 16229);
+            logger.info("bStats metrics enabled.");
         }
     }
 
