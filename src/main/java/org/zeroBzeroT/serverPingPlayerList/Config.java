@@ -50,7 +50,7 @@ public class Config {
                 writer.write("setHoverInfo: true\n");
                 writer.write("messageOfTheDayOverride: false\n");
                 writer.write("messageOfTheDay: \"A Minecraft Server\"\n");
-                writer.write("bStats: true\n");
+                writer.write("bStats: false\n");
                 writer.write("useMainServer: false\n");
                 writer.write("mainServer: \"main\"\n");
             }

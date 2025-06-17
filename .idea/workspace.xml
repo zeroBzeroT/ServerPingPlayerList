@@ -8,23 +8,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a704c272-4ff5-48db-9e09-bdc0778c5d71" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradle.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/bungee.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/config.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/org/zeroBzeroT/serverPingPlayerList/Config.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/org/zeroBzeroT/serverPingPlayerList/Main.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/org/zeroBzeroT/serverPingPlayerList/ReloadCommand.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/org/zeroBzeroT/serverPingPlayerList/listener/ServerListListener.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/original-ServerPingPlayerList-1.2.2.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/zeroBzeroT/serverPingPlayerList/Config.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/zeroBzeroT/serverPingPlayerList/Config.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/zeroBzeroT/serverPingPlayerList/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/zeroBzeroT/serverPingPlayerList/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/velocity-plugin.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/velocity-plugin.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,13 +46,13 @@
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="ServerPingPlayerList" type="f1a62948:ProjectNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="other" type="c8890929:TasksNode$1" />
+                <item name="build" type="c8890929:TasksNode$1" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="ServerPingPlayerList" type="f1a62948:ProjectNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="run velocity" type="c8890929:TasksNode$1" />
+                <item name="shadow" type="c8890929:TasksNode$1" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
@@ -96,9 +84,13 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Gradle.Download Sources.executor": "Run",
+    "Gradle.ServerPingPlayerList [build].executor": "Run",
+    "Gradle.ServerPingPlayerList [classes].executor": "Run",
     "Gradle.ServerPingPlayerList [clean].executor": "Run",
     "Gradle.ServerPingPlayerList [jar].executor": "Run",
     "Gradle.ServerPingPlayerList [runVelocity].executor": "Run",
+    "Gradle.ServerPingPlayerList [shadowJar].executor": "Run",
+    "Gradle.ServerPingPlayerList [testClasses].executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -135,6 +127,28 @@
       <framework value="gotest" />
       <method v="2" />
     </configuration>
+    <configuration name="ServerPingPlayerList [classes]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="classes" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
     <configuration name="ServerPingPlayerList [clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -147,28 +161,6 @@
         <option name="taskNames">
           <list>
             <option value="clean" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
-      <method v="2" />
-    </configuration>
-    <configuration name="ServerPingPlayerList [jar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="jar" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -201,27 +193,57 @@
       <RunAsTest>false</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="gradlew" type="ShConfigurationType" temporary="true">
-      <option name="SCRIPT_TEXT" value="" />
-      <option name="INDEPENDENT_SCRIPT_PATH" value="true" />
-      <option name="SCRIPT_PATH" value="$PROJECT_DIR$/gradlew" />
-      <option name="SCRIPT_OPTIONS" value="" />
-      <option name="INDEPENDENT_SCRIPT_WORKING_DIRECTORY" value="true" />
-      <option name="SCRIPT_WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="INDEPENDENT_INTERPRETER_PATH" value="true" />
-      <option name="INTERPRETER_PATH" value="/bin/sh" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="EXECUTE_IN_TERMINAL" value="true" />
-      <option name="EXECUTE_SCRIPT_FILE" value="true" />
-      <envs />
+    <configuration name="ServerPingPlayerList [shadowJar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="shadowJar" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="ServerPingPlayerList [testClasses]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="testClasses" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Gradle.ServerPingPlayerList [runVelocity]" />
-        <item itemvalue="Gradle.ServerPingPlayerList [jar]" />
+        <item itemvalue="Gradle.ServerPingPlayerList [shadowJar]" />
+        <item itemvalue="Gradle.ServerPingPlayerList [testClasses]" />
         <item itemvalue="Gradle.ServerPingPlayerList [clean]" />
-        <item itemvalue="Shell Script.gradlew" />
+        <item itemvalue="Gradle.ServerPingPlayerList [classes]" />
       </list>
     </recent_temporary>
   </component>

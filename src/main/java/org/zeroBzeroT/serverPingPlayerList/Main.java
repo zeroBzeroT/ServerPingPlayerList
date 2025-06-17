@@ -21,6 +21,7 @@ public class Main {
     private final ProxyServer server;
     private final Logger logger;
     private final Path dataDirectory;
+    //private final Factory factory;
 
     private Config config;
     private ServerListListener serverListListener;
@@ -29,10 +30,11 @@ public class Main {
     private volatile ServerPing mainPing;
 
     @Inject
-    public Main(ProxyServer server, Logger logger, @DataDirectory Path dataDirectory) {
+    public Main(ProxyServer server, Logger logger, @DataDirectory Path dataDirectory /*, Factory factory*/) {
         this.server = server;
         this.logger = logger;
         this.dataDirectory = dataDirectory;
+        //this.factory = factory;
     }
 
     @Subscribe
@@ -54,10 +56,10 @@ public class Main {
         // Some output to the console ;)
         config.logConfig();
 
-        // TODO Load Plugin Metrics
+        // Load Plugin Metrics
         if (config.getBoolean("bStats")) {
-            // bStats is Velocity Metrics v2, so you would prolly need to set up differently if you want to support it.
-            // so this is js a placeholder for your metrics setup if needed.
+            // TODO implement bStats
+            // factory.make(this, 16229);
         }
     }
 

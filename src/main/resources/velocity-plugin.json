@@ -4,7 +4,8 @@
   "version": "@VERSION@",
   "description": "@DESCRIPTION@",
   "authors": [
-    "bierdosenhalter", "A4P5"
+    "bierdosenhalter",
+    "A4P5"
   ],
   "main": "org.zeroBzeroT.serverPingPlayerList.Main"
 }
