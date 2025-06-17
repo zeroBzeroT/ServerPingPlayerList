@@ -1,10 +1,11 @@
 plugins {
     id 'java'
     id 'xyz.jpenilla.run-velocity' version '2.3.1'
+    id 'xyz.jpenilla.run-paper' version '2.3.1'
 }
 
 group = 'org.zeroBzeroT'
-version = '2.0.0'
+version = "${project.plugin_version}"
 description = 'A Velocity plugin for the hover player list in the server list.'
 
 repositories {
@@ -13,9 +14,9 @@ repositories {
 }
 
 dependencies {
-    // Velocity API
-    // https://repo.papermc.io/service/rest/repository/browse/maven-public/com/velocitypowered/velocity-api/
-    compileOnly group: 'com.velocitypowered', name: 'velocity-api', version: "3.4.0-SNAPSHOT"
+    compileOnly group: 'com.velocitypowered', name: 'velocity-api', version: "${project.velocity_api_version}"
+    annotationProcessor group: 'com.velocitypowered', name: 'velocity-api', version: "${project.velocity_api_version}"
+    implementation group: 'org.bstats', name: 'bstats-velocity', version: '3.1.0'
 }
 
 java {
@@ -36,20 +37,40 @@ processResources {
     }
 }
 
-test {
-    useJUnitPlatform()
-}
+// put jar artifact in build/dist/
+jar.destinationDirectory.set(layout.buildDirectory.dir('dist'))
 
+// test setup
+runPaper.disablePluginJarDetection()
 tasks {
     runVelocity {
-        runDirectory = layout.projectDirectory.dir('run')
+        runDirectory = layout.projectDirectory.dir('run').dir('proxy')
         dependsOn('build')
-        systemProperty('com.mojang.eula.agree', 'true')
-        velocityVersion("3.4.0-SNAPSHOT")
+        velocityVersion("${project.velocity_api_version}")
         downloadPlugins {
             url("https://github.com/ViaVersion/ViaBackwards/releases/download/5.3.2/ViaBackwards-5.3.2.jar")
             url("https://github.com/ViaVersion/ViaVersion/releases/download/5.3.2/ViaVersion-5.3.2.jar")
             url("https://github.com/zeroBzeroT/AnarchyQueue/releases/download/3.0.8/AnarchyQueue-3.0.8-INDEV.jar")
         }
+    }
+
+    tasks.register('runServerMain', runServer.getClass() as Class<Task>) {
+        minecraftVersion("${project.minecraft_version}")
+        systemProperty('com.mojang.eula.agree', 'true')
+        systemProperty('Paper.skipServerPropertiesComments', 'true')
+        runDirectory = layout.projectDirectory.dir('run').dir('main')
+        dependsOn('build')
+    }
+
+    tasks.register('runServerQueue', runServer.getClass() as Class<Task>) {
+        minecraftVersion("${project.minecraft_version}")
+        systemProperty('com.mojang.eula.agree', 'true')
+        systemProperty('Paper.skipServerPropertiesComments', 'true')
+        runDirectory = layout.projectDirectory.dir('run').dir('queue')
+        downloadPlugins {
+            github("zeroBzeroT", "QueueServerPlugin", "3.0.0-SNAPSHOT", "queueplugin-3.0.0-SNAPSHOT+1.20.6-paper.jar")
+            url("https://ci.dmulloy2.net/job/ProtocolLib/723/artifact/build/libs/ProtocolLib.jar")
+        }
+        dependsOn('build')
     }
 }
