@@ -15,7 +15,7 @@ repositories {
 dependencies {
     // Velocity API
     // https://repo.papermc.io/service/rest/repository/browse/maven-public/com/velocitypowered/velocity-api/
-    compileOnly group: 'com.velocitypowered', name: 'velocity-api', version: "3.4.0-SNAPSHOT"
+    compileOnly group: 'com.velocitypowered', name: 'velocity-api', version: "4.0.0-SNAPSHOT"
 }
 
 java {
