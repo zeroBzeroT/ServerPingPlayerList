@@ -1,17 +1,11 @@
-# TODO
-
-few errors in src/main/java/org/zeroBzeroT/serverPingPlayerList/listener/ServerListListener.java
-
-## Versions
-
-| git                                                                               | version | sw        |
-|-----------------------------------------------------------------------------------|---------|-----------|
-| [master](https://github.com/zeroBzeroT/ServerPingPlayerList/tree/master)          | 2.0.x   | velocity  |
-| [1.20.4_paper](https://github.com/zeroBzeroT/ServerPingPlayerList/tree/waterfall) | 1.2.x   | waterfall |
-
----
 
 ## ServerPingPlayerList
+
+[![discord](https://img.shields.io/discord/895546064260718622?logo=discord)](https://discord.0b0t.org)
+[![reddit](https://img.shields.io/reddit/subreddit-subscribers/0b0t)](https://old.reddit.com/r/0b0t/)
+![last commit](https://img.shields.io/github/last-commit/zeroBzeroT/ServerPingPlayerList)
+![repo size](https://img.shields.io/github/languages/code-size/zeroBzeroT/ServerPingPlayerList.svg?label=repo%20size)
+[![downloads](https://img.shields.io/github/downloads/zeroBzeroT/ServerPingPlayerList/total)](https://github.com/zeroBzeroT/ServerPingPlayerList/releases)
 
 ServerPingPlayerList is a plugin for **[Waterfall](https://github.com/SpigotMC/BungeeCord)**. The plugin makes sure that
 the player list is displayed as so-called samples again. This feature is included in Vanilla Minecraft and Bukkit,
@@ -20,11 +14,12 @@ feature.
 
 ![logo](https://github.com/zeroBzeroT/ServerPingPlayerList/blob/master/logo.jpg?raw=true)
 
-[![discord](https://img.shields.io/discord/895546064260718622?logo=discord)](https://discord.0b0t.org)
-[![reddit](https://img.shields.io/reddit/subreddit-subscribers/0b0t)](https://old.reddit.com/r/0b0t/)
-![last commit](https://img.shields.io/github/last-commit/zeroBzeroT/ServerPingPlayerList)
-![repo size](https://img.shields.io/github/languages/code-size/zeroBzeroT/ServerPingPlayerList.svg?label=repo%20size)
-[![downloads](https://img.shields.io/github/downloads/zeroBzeroT/ServerPingPlayerList/total)](https://github.com/zeroBzeroT/ServerPingPlayerList/releases)
+## Versions
+
+| git                                                                               | version | sw        |
+|-----------------------------------------------------------------------------------|---------|-----------|
+| [master](https://github.com/zeroBzeroT/ServerPingPlayerList/tree/master)          | 2.0.x   | velocity  |
+| [1.20.4_paper](https://github.com/zeroBzeroT/ServerPingPlayerList/tree/waterfall) | 1.2.x   | waterfall |
 
 ## Details
 
