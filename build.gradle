@@ -1,6 +1,5 @@
 plugins {
     id 'java'
-    id 'io.github.goooler.shadow' version '8.1.8'
     id 'xyz.jpenilla.run-velocity' version '2.3.1'
     id 'xyz.jpenilla.run-paper' version '2.3.1'
 }
@@ -23,7 +22,6 @@ repositories {
 dependencies {
     compileOnly group: 'com.velocitypowered', name: 'velocity-api', version: "${project.velocity_api_version}"
     annotationProcessor group: 'com.velocitypowered', name: 'velocity-api', version: "${project.velocity_api_version}"
-    implementation group: 'org.bstats', name: 'bstats-velocity', version: '3.1.0'
 }
 
 java {
@@ -44,27 +42,12 @@ processResources {
     }
 }
 
-// https://imperceptiblethoughts.com/shadow/
-shadowJar {
-    configurations = [project.configurations.shadow]
-    archiveFileName = "${project.name}-${project.version}-velocity.jar"
-    destinationDirectory = layout.buildDirectory.dir('dist')
-
-    relocate 'org.bstats',            'org.zeroBzeroT.shaded.bstats'
-
-    // delete unshaded jar
-    doLast {
-        file(jar.archiveFile).delete()
-    }
-}
-build.finalizedBy(shadowJar)
-
 // test setup
 runPaper.disablePluginJarDetection()
 tasks {
     runVelocity {
         runDirectory = layout.projectDirectory.dir('run').dir('proxy')
-        dependsOn('shadowJar')
+        dependsOn('build')
         velocityVersion("${project.velocity_api_version}")
         downloadPlugins {
             url("https://github.com/ViaVersion/ViaBackwards/releases/download/5.3.2/ViaBackwards-5.3.2.jar")
@@ -78,7 +61,7 @@ tasks {
         systemProperty('com.mojang.eula.agree', 'true')
         systemProperty('Paper.skipServerPropertiesComments', 'true')
         runDirectory = layout.projectDirectory.dir('run').dir('main')
-        dependsOn('shadowJar')
+        dependsOn('build')
     }
 
     tasks.register('runServerQueue', runServer.getClass() as Class<Task>) {
@@ -90,6 +73,6 @@ tasks {
             url("https://github.com/zeroBzeroT/QueuePlugin/releases/download/v3.0.0/QueuePlugin-3.0.0+1.21-paper.jar")
             url("https://github.com/dmulloy2/ProtocolLib/releases/download/5.3.0/ProtocolLib.jar")
         }
-        dependsOn('shadowJar')
+        dependsOn('build')
     }
 }

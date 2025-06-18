@@ -21,7 +21,6 @@ public class Main {
     private final ProxyServer server;
     private final Logger logger;
     private final Path dataDirectory;
-    //private final Factory factory;
 
     private Config config;
     private ServerListListener serverListListener;
@@ -31,11 +30,11 @@ public class Main {
     private volatile ServerPing mainPing;
 
     @Inject
-    public Main(ProxyServer server, Logger logger, @DataDirectory Path dataDirectory /*, Factory factory*/) {
+    public Main(ProxyServer server, Logger logger, Metrics.Factory metricsFactory, @DataDirectory final Path dataDirectory) {
         this.server = server;
         this.logger = logger;
         this.dataDirectory = dataDirectory;
-        //this.factory = factory;
+        this.metricsFactory = metricsFactory;
     }
 
     @Subscribe
@@ -59,7 +58,7 @@ public class Main {
 
         // Load Plugin Metrics
         if (config.getBoolean("bStats")) {
-            Metrics metrics = metricsFactory.make(this, 16229);
+            metricsFactory.make(this, 16229);
             logger.info("bStats metrics enabled.");
         }
     }
