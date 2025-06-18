@@ -42,6 +42,9 @@ processResources {
     }
 }
 
+// put jar artifact in build/dist/
+jar.destinationDirectory.set(layout.buildDirectory.dir('dist'))
+
 // test setup
 runPaper.disablePluginJarDetection()
 tasks {
